@@ -1,0 +1,6 @@
+@SnpWebApp_HostAddress = http://localhost:5105
+
+GET {{SnpWebApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
