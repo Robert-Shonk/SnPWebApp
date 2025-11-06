@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# My ignored files
+SnpWebApp/snp.db
+
 # dotenv files
 .env
 
