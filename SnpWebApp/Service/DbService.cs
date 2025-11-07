@@ -73,7 +73,7 @@ namespace SnpWebApp.Service
             return stockAggData;
         }
 
-        // group by sectors
+        // group by sectors and return every stock's ytd.
         public IQueryable JoinSnpStock()
         {
             var result = _context.Snps
@@ -97,7 +97,62 @@ namespace SnpWebApp.Service
                 )
                 .GroupBy(snp => snp.Sector);
 
+            foreach (var group in result)
+            {
+                var grp = group.GroupBy(g => g.Symbol);
+                Console.WriteLine(group.Key);
+                foreach (var g in grp)
+                {
+                    var first = g.OrderByDescending(d => d.Date).First();
+                    Console.WriteLine($"{first.Symbol}, Date: {first.Date}, Move: {first.Move}");
+                }
+            }
+
             return result;
+        }
+
+        public List<SectorDTO> SectorBySectorPerformance()
+        {
+            var result = _context.Snps
+                .Join(
+                    _context.Stocks,
+                    snp => snp.Symbol,
+                    stock => stock.Symbol,
+                    (snp, stock) => new
+                    {
+                        Symbol = snp.Symbol,
+                        Sector = snp.Sector,
+                        Date = stock.Date,
+                        Move = stock.Move
+                    }
+                )
+                .GroupBy(snp => snp.Sector);
+
+
+            List<SectorDTO> sectorPerformance = new List<SectorDTO>();
+            List<double> moves; // for each sector, make a list of each stock's most recent move.
+            double sectorMean; // the average of each sector move
+            foreach (var sector in result)
+            {
+                moves = new List<double>();
+
+                var stockGroups = sector.GroupBy(g => g.Symbol);
+                foreach (var g in stockGroups)
+                {
+                    var first = g.OrderByDescending(d => d.Date).First();
+                    moves.Add(first.Move);
+                }
+
+                sectorMean = moves.Average();
+
+                sectorPerformance.Add(new SectorDTO()
+                {
+                    SectorName = sector.Key,
+                    SectorMoveMean = sectorMean
+                });
+            }
+            
+            return sectorPerformance;
         }
     }
 }

@@ -50,5 +50,13 @@ namespace SnpWebApp.Controllers
 
             return Ok(join);
         }
+
+        [HttpGet("sectorPerformance")]
+        public IActionResult SectorPerformance()
+        {
+            var sect = _dbService.SectorBySectorPerformance();
+
+            return Ok(sect);
+        }
     }
 }
