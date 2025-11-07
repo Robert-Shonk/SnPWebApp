@@ -27,12 +27,20 @@ namespace SnpWebApp.Controllers
             return Ok(stockSymbols);
         }
 
-        [HttpGet("{symbol}")]
+        [HttpGet("stock/{symbol}")]
         public async Task<IActionResult> GetStockBySymbol(string symbol)
         {
-            var stocks = await _dbService.GetStockBySymbolAsync(symbol);
+            var stocks = await _dbService.GetStockDTOBySymbolAsync(symbol);
 
             return Ok(stocks);
+        }
+
+        [HttpGet("stock/aggregate/{symbol}")]
+        public async Task<IActionResult> AggStock(string symbol)
+        {
+            var agg = await _dbService.GetStockAggDTOAsync(symbol);
+
+            return Ok(agg);
         }
     }
 }
