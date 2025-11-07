@@ -7,8 +7,8 @@ namespace SnpWebApp.Service.Interfaces
     {
         Task<List<string>> GetAllStockSymbolsAsync();
         Task<List<Stock>> GetStockBySymbolAsync(string symbol);
-        Task<List<StockDTO>> GetStockDTOBySymbolAsync(string symbol);
         Task<IQueryable<IGrouping<int, Stock>>> GroupStockByMonthAsync(string symbol);
         Task<StockAggDTO> GetStockAggDTOAsync(string symbol);
+        IQueryable JoinSnpStock();
     }
 }

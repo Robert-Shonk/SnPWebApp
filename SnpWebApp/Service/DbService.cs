@@ -30,46 +30,6 @@ namespace SnpWebApp.Service
             return stocks;
         }
 
-        // Returns year-to-date data along with calculated daily return percentages as Move.
-        // Initial Move will be 0.
-        public async Task<List<StockDTO>> GetStockDTOBySymbolAsync(string symbol)
-        {
-            var stocks = await GetStockBySymbolAsync(symbol);
-
-            stocks = stocks.OrderBy(d => d.Date).ToList();
-
-            List<StockDTO> stockDTOs = new List<StockDTO>();
-
-            stockDTOs.Add(new StockDTO()
-            {
-                Symbol = stocks[0].Symbol,
-                Date = stocks[0].Date,
-                Open = stocks[0].Open,
-                High = stocks[0].High,
-                Low = stocks[0].Low,
-                Close = stocks[0].Close,
-                Volume = stocks[0].Volume,
-                Move = 0
-            });
-
-            for (int i = 1; i < stocks.Count; i++)
-            {
-                stockDTOs.Add(new StockDTO()
-                {
-                    Symbol = stocks[i].Symbol,
-                    Date = stocks[i].Date,
-                    Open = stocks[i].Open,
-                    High = stocks[i].High,
-                    Low = stocks[i].Low,
-                    Close = stocks[i].Close,
-                    Volume = stocks[i].Volume,
-                    Move = ((stocks[i].Close / stocks[i-1].Close) - 1)*100
-                });
-            }
-
-            return stockDTOs;
-        }
-
         public async Task<IQueryable<IGrouping<int, Stock>>> GroupStockByMonthAsync(string symbol)
         {
             var monthGroups = await Task.Run(() => _context.Stocks
@@ -111,6 +71,33 @@ namespace SnpWebApp.Service
             };
 
             return stockAggData;
+        }
+
+        // group by sectors
+        public IQueryable JoinSnpStock()
+        {
+            var result = _context.Snps
+                .Join(
+                    _context.Stocks,
+                    snp => snp.Symbol,
+                    stock => stock.Symbol,
+                    (snp, stock) => new
+                    {
+                        Symbol = snp.Symbol,
+                        Security = snp.Security,
+                        Sector = snp.Sector,
+                        SubSector = snp.SubIndustry,
+                        DateAddedToList = snp.DateAdded,
+                        CIK = snp.Cik,
+                        Date = stock.Date,
+                        Close = stock.Close,
+                        Volume = stock.Volume,
+                        Move = stock.Move
+                    }
+                )
+                .GroupBy(snp => snp.Sector);
+
+            return result;
         }
     }
 }

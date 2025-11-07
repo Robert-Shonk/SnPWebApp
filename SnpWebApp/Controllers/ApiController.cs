@@ -30,7 +30,7 @@ namespace SnpWebApp.Controllers
         [HttpGet("stock/{symbol}")]
         public async Task<IActionResult> GetStockBySymbol(string symbol)
         {
-            var stocks = await _dbService.GetStockDTOBySymbolAsync(symbol);
+            var stocks = await _dbService.GetStockBySymbolAsync(symbol);
 
             return Ok(stocks);
         }
@@ -41,6 +41,14 @@ namespace SnpWebApp.Controllers
             var agg = await _dbService.GetStockAggDTOAsync(symbol);
 
             return Ok(agg);
+        }
+
+        [HttpGet("sectors")]
+        public IActionResult JoinTables()
+        {
+            var join = _dbService.JoinSnpStock();
+
+            return Ok(join);
         }
     }
 }

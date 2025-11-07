@@ -20,4 +20,6 @@ public partial class Stock
     public double Close { get; set; }
 
     public int Volume { get; set; }
+
+    public double Move { get; set; }
 }

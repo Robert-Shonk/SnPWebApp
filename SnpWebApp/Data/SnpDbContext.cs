@@ -46,6 +46,7 @@ public partial class SnpDbContext : DbContext
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.High).HasColumnName("high");
             entity.Property(e => e.Low).HasColumnName("low");
+            entity.Property(e => e.Move).HasColumnName("move");
             entity.Property(e => e.Open).HasColumnName("open");
             entity.Property(e => e.Symbol).HasColumnName("symbol");
             entity.Property(e => e.Volume).HasColumnName("volume");
