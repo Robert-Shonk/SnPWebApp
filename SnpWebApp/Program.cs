@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SnpWebApp.Data;
+using SnpWebApp.Service;
+using SnpWebApp.Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,9 @@ builder.Services.AddOpenApi();
 // DbContext
 builder.Services.AddDbContext<SnpDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// My services
+builder.Services.AddScoped<IDbService, DbService>();
 
 var app = builder.Build();
 
