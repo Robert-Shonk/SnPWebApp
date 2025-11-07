@@ -52,9 +52,9 @@ namespace SnpWebApp.Controllers
         }
 
         [HttpGet("sectorPerformance")]
-        public IActionResult SectorPerformance()
+        public async Task<IActionResult> SectorPerformance()
         {
-            var sect = _dbService.SectorBySectorPerformance();
+            var sect = await _dbService.SectorBySectorPerformanceAsync();
 
             return Ok(sect);
         }

@@ -111,9 +111,9 @@ namespace SnpWebApp.Service
             return result;
         }
 
-        public List<SectorDTO> SectorBySectorPerformance()
+        public async Task<List<SectorDTO>> SectorBySectorPerformanceAsync()
         {
-            var result = _context.Snps
+            var result = await Task.Run(() => _context.Snps
                 .Join(
                     _context.Stocks,
                     snp => snp.Symbol,
@@ -126,8 +126,7 @@ namespace SnpWebApp.Service
                         Move = stock.Move
                     }
                 )
-                .GroupBy(snp => snp.Sector);
-
+                .GroupBy(snp => snp.Sector));
 
             List<SectorDTO> sectorPerformance = new List<SectorDTO>();
             List<double> moves; // for each sector, make a list of each stock's most recent move.
@@ -151,7 +150,7 @@ namespace SnpWebApp.Service
                     SectorMoveMean = sectorMean
                 });
             }
-            
+
             return sectorPerformance;
         }
     }
