@@ -25,7 +25,7 @@ namespace SnpWebApp.Service
         // Gets year-to-date data for specific stock by symbol.
         public async Task<List<Stock>> GetStockBySymbolAsync(string symbol)
         {
-            var stocks = await _context.Stocks.Where(stock => stock.Symbol == symbol.ToUpper()).ToListAsync();
+            var stocks = await _context.Stocks.Where(stock => stock.Symbol == symbol.ToUpper()).OrderByDescending(d => d.Date).ToListAsync();
 
             return stocks;
         }
