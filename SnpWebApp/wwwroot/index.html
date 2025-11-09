@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Home page</title>
+</head>
+<body>
+    <div id="container">
+        <canvas id="chart"></canvas>
+    </div>
+
+    <script>
+        async function displayData(symbol) {
+            let data = await getDateClose(symbol);
+
+            const ctx = document.getElementById('chart');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data['dates'].reverse(),
+                    datasets: [{
+                        label: 'Apple - AAPL',
+                        data: data['closes'].reverse(),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 6
+                            }
+                        }
+                    },
+                    pointStyle: false
+                }
+            });
+        }
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
