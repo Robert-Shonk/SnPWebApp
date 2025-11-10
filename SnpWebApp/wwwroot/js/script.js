@@ -68,6 +68,11 @@ async function fetchStockAgg(symbol) {
 function createNameList(stocks) {
     const stockList = document.getElementById("stockList");
 
+    // clear stockList div if children exist
+    while (stockList.firstChild) {
+        stockList.firstChild.remove();
+    }
+
     // alphabetize keys
     const sortedKeys = Object.keys(stocks).sort();
 
@@ -225,6 +230,9 @@ async function renderView(symbol, stockName) {
     const stockNames = await fetchStockNames();
     const agg = await fetchStockAgg(symbol);
 
+    // store stockNames in storage so it can be used in other file. don't know if this is the best practice but it works...
+    sessionStorage.setItem("stockNames", JSON.stringify(stockNames));
+
     // create stock name list
     createNameList(stockNames);
 
@@ -241,4 +249,5 @@ async function renderView(symbol, stockName) {
     companyName.textContent = stockName;
 }
 
-renderView('aapl', 'Apple');
+// render view with Apple as default.
+renderView('aapl', 'Apple Inc.');
