@@ -67,7 +67,7 @@ function createNameList(stocks) {
         mainDiv.style.display = "flex";
         mainDiv.dataset.symbol = key;
         // still need to make onlick function but need to figure out how to destroy() charts before making new ones.
-        mainDiv.addEventListener('click', () => { renderView(key) });
+        mainDiv.addEventListener('click', () => { renderView(key, stocks[key]) });
 
         const symbolDiv = document.createElement("div");
         symbolDiv.setAttribute("class", "sym");
@@ -118,7 +118,7 @@ function createStockTable(data) {
 }
 
 // create chart for close price on date
-function displayData(data) {
+function displayData(data, symbol, stockName) {
     let ctx = document.getElementById('chart');
     ctx.remove();
     const chart2 = document.getElementById('chart2');
@@ -134,7 +134,7 @@ function displayData(data) {
         data: {
             labels: dates,
             datasets: [{
-                label: 'Apple - AAPL',
+                label: `${stockName} - ${symbol.toUpperCase()}`,
                 data: closes,
                 borderWidth: 1
             }]
@@ -194,7 +194,7 @@ function displayVolatility(data) {
     });
 }
 
-async function renderView(symbol) {
+async function renderView(symbol, stockName) {
     const data = await getData(symbol);
     const stockNames = await fetchStockNames();
     const agg = await fetchStockAgg(symbol);
@@ -203,7 +203,7 @@ async function renderView(symbol) {
     createNameList(stockNames);
 
     // create basic stock data chart
-    displayData(data);
+    displayData(data, symbol, stockName);
 
     // create aggregate stock data chart
     displayVolatility(agg);
@@ -212,4 +212,4 @@ async function renderView(symbol) {
     createStockTable(data);
 }
 
-renderView('aapl');
+renderView('aapl', 'Apple');
