@@ -8,7 +8,7 @@ and a table showing stock's closing date, closing price, and daily return percen
 */
 
 // concat desired stock symbol to this
-const baseUrl = "https://localhost:7188/api/"
+const baseUrl = "https://localhost:7188/api/";
 const stockBySymbolUrl = `${baseUrl}stock/`;
 const stockNamesUrl = `${baseUrl}names`;
 const stockAggUrl = `${baseUrl}stock/aggregate/`;
@@ -77,7 +77,9 @@ function createNameList(stocks) {
         mainDiv.style.display = "flex";
         mainDiv.dataset.symbol = key;
         // still need to make onlick function but need to figure out how to destroy() charts before making new ones.
-        mainDiv.addEventListener('click', () => { renderView(key, stocks[key]) });
+        mainDiv.addEventListener('click', () => {
+            renderView(key, stocks[key]);
+        });
 
         const symbolDiv = document.createElement("div");
         symbolDiv.setAttribute("class", "sym");
@@ -220,6 +222,9 @@ async function renderView(symbol, stockName) {
 
     // create table
     createStockTable(data);
+
+    const companyName = document.getElementById("companyName");
+    companyName.textContent = stockName;
 }
 
 renderView('aapl', 'Apple');
