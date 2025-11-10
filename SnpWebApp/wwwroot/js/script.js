@@ -79,9 +79,20 @@ function createNameList(stocks) {
         mainDiv.setAttribute("class", "stockListRow");
         mainDiv.style.display = "flex";
         mainDiv.dataset.symbol = key;
-        // still need to make onlick function but need to figure out how to destroy() charts before making new ones.
+
+        // onclick will render new charts, highlight chosen stock in list and un-highlight previous one.
         mainDiv.addEventListener('click', () => {
             renderView(key, stocks[key]);
+
+            const highLight = document.getElementById("highLight");
+            if (highLight) {
+                highLight.removeAttribute("id");
+                highLight.style.backgroundColor = '';
+            }
+
+            mainDiv.setAttribute("id", "highLight");
+            mainDiv.style.backgroundColor = "yellow";
+           
         });
 
         const symbolDiv = document.createElement("div");
