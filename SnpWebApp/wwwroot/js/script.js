@@ -1,7 +1,17 @@
-﻿// concat desired stock symbol to this
-const stockBySymbolUrl = "https://localhost:7188/api/stock/";
-const stockNamesUrl = "https://localhost:7188/api/names";
-const stockAggUrl = "https://localhost:7188/api/stock/aggregate/";
+﻿/*
+This script has functions for fetching all the data and creating visuals for index.html.
+
+index.html shows:
+a list of all stocks on the S&P500 that user can click and choose to show info,
+2 charts showing year-to-date closing prices and monthly volatility for stock,
+and a table showing stock's closing date, closing price, and daily return percentage (move).
+*/
+
+// concat desired stock symbol to this
+const baseUrl = "https://localhost:7188/api/"
+const stockBySymbolUrl = `${baseUrl}stock/`;
+const stockNamesUrl = `${baseUrl}names`;
+const stockAggUrl = `${baseUrl}stock/aggregate/`;
 
 // fetch functions
 async function fetchStock(symbol) {
