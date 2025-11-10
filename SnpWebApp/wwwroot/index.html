@@ -7,43 +7,23 @@
     <title>Home page</title>
 </head>
 <body>
+    <div id="top">S&P500 - Apple Inc.</div>
     <div id="container">
-        <canvas id="chart"></canvas>
+        <div id="chartDiv">
+            <canvas id="chart"></canvas>
+            <canvas id="chart2"></canvas>
+        </div>
+        <div id="stockTable">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Close</th>
+                    <th>Move</th>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <script>
-        async function displayData(symbol) {
-            let data = await getDateClose(symbol);
-
-            const ctx = document.getElementById('chart');
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data['dates'].reverse(),
-                    datasets: [{
-                        label: 'Apple - AAPL',
-                        data: data['closes'].reverse(),
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: false
-                        },
-                        x: {
-                            ticks: {
-                                autoSkip: true,
-                                maxTicksLimit: 6
-                            }
-                        }
-                    },
-                    pointStyle: false
-                }
-            });
-        }
-    </script>
     <script src="js/script.js"></script>
 </body>
 </html>
