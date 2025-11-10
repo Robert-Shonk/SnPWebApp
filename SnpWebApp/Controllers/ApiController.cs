@@ -14,6 +14,7 @@ namespace SnpWebApp.Controllers
            _dbService = dbService;
         }
 
+        // gets all stock ticker symbols
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,6 +26,20 @@ namespace SnpWebApp.Controllers
             }
 
             return Ok(stockSymbols);
+        }
+
+        // get all stock company names
+        [HttpGet("names")]
+        public async Task<IActionResult> GetStockNames()
+        {
+            var stockNames = await _dbService.GetAllStockNamesAsync();
+
+            if (stockNames.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(stockNames);
         }
 
         [HttpGet("stock/{symbol}")]
