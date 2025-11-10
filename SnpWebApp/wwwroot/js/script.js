@@ -68,10 +68,13 @@ async function fetchStockAgg(symbol) {
 function createNameList(stocks) {
     const stockList = document.getElementById("stockList");
 
+    // alphabetize keys
+    const sortedKeys = Object.keys(stocks).sort();
+
     // for every key, create a main div that will have 2 divs, one for each symbol and name.
     // set main div's dataset.symbol = symbol.
     // then append to stockList div.
-    for (const key in stocks) {
+    sortedKeys.forEach(key => {
         const mainDiv = document.createElement("div");
         mainDiv.setAttribute("class", "stockListRow");
         mainDiv.style.display = "flex";
@@ -92,7 +95,7 @@ function createNameList(stocks) {
         mainDiv.append(symbolDiv, nameDiv);
 
         stockList.append(mainDiv);
-    }
+    });
 }
 
 
