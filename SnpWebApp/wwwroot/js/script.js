@@ -3,7 +3,6 @@ const stockBySymbolUrl = "https://localhost:7188/api/stock/";
 const stockNamesUrl = "https://localhost:7188/api/names";
 const stockAggUrl = "https://localhost:7188/api/stock/aggregate/";
 
-
 // fetch functions
 async function fetchStock(symbol) {
     const url = stockBySymbolUrl + symbol;
@@ -68,7 +67,7 @@ function createNameList(stocks) {
         mainDiv.style.display = "flex";
         mainDiv.dataset.symbol = key;
         // still need to make onlick function but need to figure out how to destroy() charts before making new ones.
-        mainDiv.addEventListener('click', () => { console.log(mainDiv.dataset.symbol)});
+        mainDiv.addEventListener('click', () => { renderView(key) });
 
         const symbolDiv = document.createElement("div");
         symbolDiv.setAttribute("class", "sym");
@@ -87,11 +86,20 @@ function createNameList(stocks) {
 
 // data = { dates: [list of dates], closes: [list of closes], move: [list of moves] }
 function createStockTable(data) {
+    // delete previous tds if new stock selected
+    const oldTds = document.querySelectorAll('.stockData');
+    if (oldTds.length > 0) {
+        oldTds.forEach(r => {
+            r.remove();
+        });
+    }
+
     const table = document.getElementsByTagName("table")[0];
     const rowNum = data['dates'].length;
 
     for (let row = 0; row < rowNum; row++) {
         const tableRow = document.createElement("tr");
+        tableRow.setAttribute('class', 'stockData');
 
         const tdDate = document.createElement("td");
         tdDate.textContent = data["dates"][row];
@@ -111,7 +119,13 @@ function createStockTable(data) {
 
 // create chart for close price on date
 function displayData(data) {
-    const ctx = document.getElementById('chart');
+    let ctx = document.getElementById('chart');
+    ctx.remove();
+    const chart2 = document.getElementById('chart2');
+    ctx = document.createElement('canvas');
+    ctx.setAttribute('id', 'chart');
+    chart2.before(ctx);
+
     const dates = data["dates"].toReversed();
     const closes = data["closes"].toReversed();
 
@@ -145,7 +159,15 @@ function displayData(data) {
 // create aggregate stock data charts
 // one for monthly volatility (and one for monthly average?)
 function displayVolatility(data) {
-    const ctx = document.getElementById('chart2');
+    let ctx = document.getElementById('chart2');
+    ctx.remove();
+    ctx = document.createElement('canvas');
+    ctx.setAttribute('id', 'chart2');
+
+    const chartDiv = document.getElementById('chartDiv');
+    chartDiv.append(ctx);
+
+
     const volatility = data['monthlyStds'];
     let monthNums = [];
     for (let i = 0; i < volatility.length; i++) {
