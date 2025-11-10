@@ -6,6 +6,7 @@ namespace SnpWebApp.Service.Interfaces
     public interface IDbService
     {
         Task<List<string>> GetAllStockSymbolsAsync();
+        Task<Dictionary<string, string>> GetAllStockNamesAsync();
         Task<List<Stock>> GetStockBySymbolAsync(string symbol);
         Task<IQueryable<IGrouping<int, Stock>>> GroupStockByMonthAsync(string symbol);
         Task<StockAggDTO> GetStockAggDTOAsync(string symbol);

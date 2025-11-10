@@ -22,6 +22,13 @@ namespace SnpWebApp.Service
             return symbols;
         }
 
+        public async Task<Dictionary<string, string>> GetAllStockNamesAsync()
+        {
+            var stockNames = await _context.Snps.Select(snp => new { snp.Symbol, snp.Security }).ToDictionaryAsync(k => k.Symbol, k => k.Security);
+
+            return stockNames;
+        }
+
         // Gets year-to-date data for specific stock by symbol.
         public async Task<List<Stock>> GetStockBySymbolAsync(string symbol)
         {
