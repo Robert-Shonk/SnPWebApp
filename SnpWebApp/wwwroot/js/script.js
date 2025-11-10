@@ -1,8 +1,10 @@
 ﻿// concat desired stock symbol to this
 const stockBySymbolUrl = "https://localhost:7188/api/stock/";
+const stockNamesUrl = "https://localhost:7188/api/names";
 const stockAggUrl = "https://localhost:7188/api/stock/aggregate/";
 
 
+// fetch functions
 async function fetchStock(symbol) {
     const url = stockBySymbolUrl + symbol;
 
@@ -12,20 +14,10 @@ async function fetchStock(symbol) {
     return data;
 }
 
-async function fetchStockAgg(symbol) {
-    const url = stockAggUrl + symbol;
-
-    const response = await fetch(url);
-    data = await response.json();
-
-    console.log(data);
-    return data;
-}
-
 async function getData(symbol) {
     const data = await fetchStock(symbol);
 
-    let dict = {}
+    let dict = {};
     let dates = [];
     let closes = [];
     let moves = [];
@@ -43,22 +35,54 @@ async function getData(symbol) {
     return dict;
 }
 
-// I want a function that will fetch the data first, then use two other functions that will: create the chart
-// and create the table.
-async function renderView(symbol) {
-    const data = await getData(symbol);
-    const agg = await fetchStockAgg(symbol);
+// gets list of all 500 stock company names and ticker symbols, a dictionary.
+async function fetchStockNames() {
+    const response = await fetch(stockNamesUrl);
+    const data = await response.json();
 
-    // create basic stock data chart
-    displayData(data);
-
-    // create aggregate stock data chart
-    displayVolatility(agg);
-
-    // create table
-    createStockTable(data);
+    return data;
 }
 
+// gets given stock's monthly average closing price and monthly volitility.
+async function fetchStockAgg(symbol) {
+    const url = stockAggUrl + symbol;
+
+    const response = await fetch(url);
+    data = await response.json();
+
+    return data;
+}
+
+// DOM functions
+// create list of stock company names for user to choose for display.
+// param is a dictionary = { symbol: companyName }, so stocks['AMD'] returns 'Advanced Micro Devices'.
+function createNameList(stocks) {
+    const stockList = document.getElementById("stockList");
+
+    // for every key, create a main div that will have 2 divs, one for each symbol and name.
+    // set main div's dataset.symbol = symbol.
+    // then append to stockList div.
+    for (const key in stocks) {
+        const mainDiv = document.createElement("div");
+        mainDiv.setAttribute("class", "stockListRow");
+        mainDiv.style.display = "flex";
+        mainDiv.dataset.symbol = key;
+        // still need to make onlick function but need to figure out how to destroy() charts before making new ones.
+        mainDiv.addEventListener('click', () => { console.log(mainDiv.dataset.symbol)});
+
+        const symbolDiv = document.createElement("div");
+        symbolDiv.setAttribute("class", "sym");
+        symbolDiv.textContent = key;
+
+        const nameDiv = document.createElement("div");
+        nameDiv.setAttribute("class", "stockName");
+        nameDiv.textContent = stocks[key];
+
+        mainDiv.append(symbolDiv, nameDiv);
+
+        stockList.append(mainDiv);
+    }
+}
 
 
 // data = { dates: [list of dates], closes: [list of closes], move: [list of moves] }
@@ -146,6 +170,24 @@ function displayVolatility(data) {
             }
         }
     });
+}
+
+async function renderView(symbol) {
+    const data = await getData(symbol);
+    const stockNames = await fetchStockNames();
+    const agg = await fetchStockAgg(symbol);
+
+    // create stock name list
+    createNameList(stockNames);
+
+    // create basic stock data chart
+    displayData(data);
+
+    // create aggregate stock data chart
+    displayVolatility(agg);
+
+    // create table
+    createStockTable(data);
 }
 
 renderView('aapl');

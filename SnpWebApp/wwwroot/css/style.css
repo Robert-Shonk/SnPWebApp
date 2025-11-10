@@ -12,12 +12,35 @@
 }
 
 td {
-    border: 1px solid black;
+    border: 1px solid gray;
     text-align: right;
+}
+
+#stockList {
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.stockListRow:hover {
+    background-color: lightgray;
+    cursor: default;
+}
+
+.stockListRow {
+    padding-bottom: 3px;
+}
+
+.sym {
+    width: 4em;
+}
+
+.stockName {
+
 }
 
 #container {
     display: flex;
+    justify-content: center;
 }
 
 #chartDiv {
