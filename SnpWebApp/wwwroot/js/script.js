@@ -115,6 +115,10 @@ function createNameList(stocks) {
 
 // data = { dates: [list of dates], closes: [list of closes], move: [list of moves] }
 function createStockTable(data) {
+    // scroll table back to top
+    const stockTable = document.getElementById("stockTable");
+    stockTable.scrollTop = 0;
+
     // delete previous tds if new stock selected
     const oldTds = document.querySelectorAll('.stockData');
     if (oldTds.length > 0) {
@@ -139,6 +143,12 @@ function createStockTable(data) {
         tableRow.append(tdClose);
 
         const tdMove = document.createElement("td");
+        if (data["moves"][row] >= 0) {
+            tdMove.style.backgroundColor = "lightgreen";
+        }
+        else {
+            tdMove.style.backgroundColor = "#ff7f7f"; // light red
+        }
         tdMove.textContent = data["moves"][row].toFixed(2);
         tableRow.append(tdMove);
 

@@ -11,6 +11,12 @@
     padding-bottom: 5px;
 }
 
+#colNames {
+    background-color: white;
+    position: sticky;
+    top: 0;
+}
+
 td {
     border: 1px solid gray;
     text-align: right;
