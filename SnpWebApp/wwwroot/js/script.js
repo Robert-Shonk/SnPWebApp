@@ -82,22 +82,16 @@ function createNameList(stocks) {
     sortedKeys.forEach(key => {
         const mainDiv = document.createElement("div");
         mainDiv.setAttribute("class", "stockListRow");
+        mainDiv.setAttribute("id", key);
         mainDiv.style.display = "flex";
-        mainDiv.dataset.symbol = key;
 
         // onclick will render new charts, highlight chosen stock in list and un-highlight previous one.
         mainDiv.addEventListener('click', () => {
+            // clear input field
+            const stockInput = document.getElementById("stockInput");
+            stockInput.value = '';
+
             renderView(key, stocks[key]);
-
-            const highLight = document.getElementById("highLight");
-            if (highLight) {
-                highLight.removeAttribute("id");
-                highLight.style.backgroundColor = '';
-            }
-
-            mainDiv.setAttribute("id", "highLight");
-            mainDiv.style.backgroundColor = "yellow";
-           
         });
 
         const symbolDiv = document.createElement("div");
@@ -111,6 +105,10 @@ function createNameList(stocks) {
         mainDiv.append(symbolDiv, nameDiv);
 
         stockList.append(mainDiv);
+
+        if (key == sessionStorage.getItem("stockFocus")) {
+            mainDiv.style.backgroundColor = "yellow";
+        }
     });
 }
 
@@ -229,6 +227,8 @@ async function renderView(symbol, stockName) {
     const data = await getData(symbol);
     const stockNames = await fetchStockNames();
     const agg = await fetchStockAgg(symbol);
+
+    sessionStorage.setItem("stockFocus", symbol.toUpperCase());
 
     // store stockNames in storage so it can be used in other file. don't know if this is the best practice but it works...
     sessionStorage.setItem("stockNames", JSON.stringify(stockNames));
