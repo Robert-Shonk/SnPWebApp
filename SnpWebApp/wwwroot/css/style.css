@@ -16,6 +16,10 @@ td {
     text-align: right;
 }
 
+#stockMenu {
+    width: 15em;
+}
+
 #stockList {
     height: 90vh;
     overflow-y: auto;
@@ -32,10 +36,15 @@ td {
 
 .sym {
     width: 4em;
+    text-align: left;
 }
 
 .stockName {
-
+    width: 10em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
 }
 
 #container {
