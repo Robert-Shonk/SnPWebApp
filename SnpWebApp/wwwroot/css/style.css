@@ -7,8 +7,11 @@
     background-color: skyblue;
     width: 100%;
     font-size: 2em;
-    padding-left: 10px;
     padding-bottom: 5px;
+}
+
+#topText {
+    padding-left: 0.25em;
 }
 
 #stockMenu {
