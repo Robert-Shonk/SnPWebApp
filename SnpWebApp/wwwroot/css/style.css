@@ -4,26 +4,16 @@
 }
 
 #top {
-    background-color: lightblue;
+    background-color: skyblue;
     width: 100%;
     font-size: 2em;
     padding-left: 10px;
     padding-bottom: 5px;
 }
 
-#colNames {
-    background-color: white;
-    position: sticky;
-    top: 0;
-}
-
-td {
-    border: 1px solid gray;
-    text-align: right;
-}
-
 #stockMenu {
     width: 15em;
+    background-color: ghostwhite;
 }
 
 #stockList {
@@ -37,6 +27,7 @@ td {
 }
 
 .stockListRow {
+    padding-top: 3px;
     padding-bottom: 3px;
 }
 
@@ -56,15 +47,42 @@ td {
 #container {
     display: flex;
     justify-content: center;
+    height: 100%;
 }
 
 #chartDiv {
-    height: 800px;
-    width: 800px;
+    height: 850px;
+    width: 850px;
+
+}
+
+table, th, td {
+    border-collapse: collapse;
+}
+
+#colNames {
+    background-color: white;
+    position: sticky;
+    top: 0;
+}
+
+td {
+    border: 1px solid gray;
+    padding: 3px;
+    text-align: center;
+}
+
+.move {
+    text-align: right;
 }
 
 #stockTable {
-    height: 90vh;
-    padding-right: 12px;
+    padding-right: 0.5em;
+    height: 93vh;
     overflow-y: auto;
+    background-color: ghostwhite;
+}
+
+.stockData:hover {
+    cursor: default;
 }

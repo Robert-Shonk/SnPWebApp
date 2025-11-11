@@ -140,6 +140,7 @@ function createStockTable(data) {
 
         const tdClose = document.createElement("td");
         tdClose.textContent = data["closes"][row].toFixed(2);
+        tdClose.style.width = "4.75em";
         tableRow.append(tdClose);
 
         const tdMove = document.createElement("td");
@@ -149,9 +150,14 @@ function createStockTable(data) {
         else {
             tdMove.style.backgroundColor = "#ff7f7f"; // light red
         }
+        tdMove.setAttribute("class", "move");
+        tdMove.style.width = "3em";
         tdMove.textContent = data["moves"][row].toFixed(2);
         tableRow.append(tdMove);
 
+        if (row % 2 != 0) {
+            tableRow.style.backgroundColor = 'skyblue';
+        }
         table.append(tableRow);
     }
 }
