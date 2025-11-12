@@ -241,16 +241,18 @@ function displayVolatility(data) {
 
 async function renderView(symbol, stockName) {
     const data = await getData(symbol);
-    const stockNames = await fetchStockNames();
     const agg = await fetchStockAgg(symbol);
 
     sessionStorage.setItem("stockFocus", symbol.toUpperCase());
 
-    // store stockNames in storage so it can be used in other file. don't know if this is the best practice but it works...
-    sessionStorage.setItem("stockNames", JSON.stringify(stockNames));
-
+    // first check if object does not exist in sessionStorage already before making api call.
+    if (sessionStorage.getItem("stockNames") == null) {
+        const stockNames = await fetchStockNames();
+        sessionStorage.setItem("stockNames", JSON.stringify(stockNames));
+    }
+    
     // create stock name list
-    createNameList(stockNames);
+    createNameList(JSON.parse(sessionStorage.getItem("stockNames")));
 
     // create basic stock data chart
     displayData(data, symbol, stockName);
