@@ -1,7 +1,8 @@
-﻿const stockNames = JSON.parse(sessionStorage.getItem("stockNames"));
+﻿
 
 function filterStocks(userInput) {
     // we take in dictionary of {symbol: companyName}
+    const stockNames = JSON.parse(sessionStorage.getItem("stockNames"));
     const inputLen = userInput.length;
 
     // create new filtered object
