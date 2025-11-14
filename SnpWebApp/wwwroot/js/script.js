@@ -66,7 +66,7 @@ async function fetchStockAgg(symbol) {
 // create list of stock company names for user to choose for display.
 // param is a dictionary = { symbol: companyName }, so stocks['AMD'] returns 'Advanced Micro Devices'.
 function createNameList(stocks) {
-    const stockList = document.getElementById("stockList");
+    const stockList = document.getElementById("list");
 
     // clear stockList div if children exist
     while (stockList.firstChild) {
@@ -83,13 +83,16 @@ function createNameList(stocks) {
         const mainDiv = document.createElement("div");
         mainDiv.setAttribute("class", "stockListRow");
         mainDiv.setAttribute("id", key);
-        mainDiv.style.display = "flex";
 
         // onclick will render new charts, highlight chosen stock in list and un-highlight previous one.
         mainDiv.addEventListener('click', () => {
             // clear input field
             const stockInput = document.getElementById("stockInput");
             stockInput.value = '';
+
+            // close whole stockList menu
+            const stockL = document.getElementsByClassName("stockList")[0];
+            stockL.style.display = "none";
 
             renderView(key, stocks[key]);
         });
@@ -116,8 +119,8 @@ function createNameList(stocks) {
 // data = { dates: [list of dates], closes: [list of closes], move: [list of moves] }
 function createStockTable(data) {
     // scroll table back to top
-    const stockTable = document.getElementById("stockTable");
-    stockTable.scrollTop = 0;
+    const tbody = document.getElementsByTagName("tbody")[0];
+    //stockTable.scrollTop = 0;
 
     // delete previous tds if new stock selected
     const oldTds = document.querySelectorAll('.stockData');
@@ -127,12 +130,11 @@ function createStockTable(data) {
         });
     }
 
-    const table = document.getElementsByTagName("table")[0];
     const rowNum = data['dates'].length;
 
     for (let row = 0; row < rowNum; row++) {
         const tableRow = document.createElement("tr");
-        tableRow.setAttribute('class', 'stockData');
+        tableRow.setAttribute("class", "stockData");
 
         const tdDate = document.createElement("td");
         tdDate.textContent = data["dates"][row];
@@ -140,36 +142,34 @@ function createStockTable(data) {
 
         const tdClose = document.createElement("td");
         tdClose.textContent = data["closes"][row].toFixed(2);
-        tdClose.style.width = "4.75em";
         tableRow.append(tdClose);
 
         const tdMove = document.createElement("td");
+        tdMove.textContent = data["moves"][row].toFixed(2);
         if (data["moves"][row] >= 0) {
             tdMove.style.backgroundColor = "lightgreen";
         }
         else {
-            tdMove.style.backgroundColor = "#ff7f7f"; // light red
+            tdMove.style.backgroundColor = "#D9544D";
         }
-        tdMove.setAttribute("class", "move");
-        tdMove.style.width = "3em";
-        tdMove.textContent = data["moves"][row].toFixed(2);
         tableRow.append(tdMove);
 
-        if (row % 2 != 0) {
-            tableRow.style.backgroundColor = 'skyblue';
-        }
-        table.append(tableRow);
+        tbody.append(tableRow);
     }
 }
 
 // create chart for close price on date
 function displayData(data, symbol, stockName) {
     let ctx = document.getElementById('chart');
-    ctx.remove();
-    const chart2 = document.getElementById('chart2');
-    ctx = document.createElement('canvas');
+    //ctx.remove();
+    if (ctx != null) {
+        ctx.remove();
+        ctx = document.createElement("canvas");
+
+        const graphCanvas = document.getElementById("graphCanvas");
+        graphCanvas.append(ctx);
+    }
     ctx.setAttribute('id', 'chart');
-    chart2.before(ctx);
 
     const dates = data["dates"].toReversed();
     const closes = data["closes"].toReversed();
@@ -179,7 +179,7 @@ function displayData(data, symbol, stockName) {
         data: {
             labels: dates,
             datasets: [{
-                label: `${stockName} - ${symbol.toUpperCase()}`,
+                label: `${symbol.toUpperCase()}`,
                 data: closes,
                 borderWidth: 1
             }]
@@ -192,11 +192,12 @@ function displayData(data, symbol, stockName) {
                 x: {
                     ticks: {
                         autoSkip: true,
-                        maxTicksLimit: 6
+                        maxTicksLimit: 5
                     }
                 }
             },
-            pointStyle: false
+            pointStyle: false,
+            maintainAspectRatio: false
         }
     });
 }
@@ -205,13 +206,14 @@ function displayData(data, symbol, stockName) {
 // one for monthly volatility (and one for monthly average?)
 function displayVolatility(data) {
     let ctx = document.getElementById('chart2');
-    ctx.remove();
-    ctx = document.createElement('canvas');
+    if (ctx != null) {
+        ctx.remove();
+        ctx = document.createElement("canvas");
+
+        const graphCanvas = document.getElementById("graphCanvas2");
+        graphCanvas.append(ctx);
+    }
     ctx.setAttribute('id', 'chart2');
-
-    const chartDiv = document.getElementById('chartDiv');
-    chartDiv.append(ctx);
-
 
     const volatility = data['monthlyStds'];
     let monthNums = [];
@@ -234,7 +236,8 @@ function displayVolatility(data) {
                 y: {
                     beginAtZero: false
                 }
-            }
+            },
+            maintainAspectRatio: false
         }
     });
 }
@@ -265,6 +268,9 @@ async function renderView(symbol, stockName) {
 
     const companyName = document.getElementById("companyName");
     companyName.textContent = stockName;
+
+    const ticker = document.getElementById("ticker");
+    ticker.textContent = symbol.toUpperCase();
 }
 
 // render view with Apple as default.

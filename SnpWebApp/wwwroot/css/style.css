@@ -1,91 +1,206 @@
-﻿body {
+﻿:root {
+    --primary-bg-color: rgb(43, 34, 34);
+    --secondary-bg-color: lightgray;
+    --primary-text-color: white;
+}
+
+
+* {
     margin: 0;
     padding: 0;
 }
 
-#top {
-    background-color: skyblue;
+
+/* HEADER */
+header {
+    background-color: var(--primary-bg-color);
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-text-color);
+}
+
+.headerLeft {
+    width: 3rem;
+}
+
+button {
     width: 100%;
-    font-size: 2em;
-    padding-bottom: 5px;
 }
 
-#topText {
-    padding-left: 0.25em;
+#stocksButton {
+    height: 3rem;
 }
 
-#stockMenu {
-    width: 15em;
-    background-color: ghostwhite;
+.headerMiddle {
+    font-size: 1.25em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 15rem;
 }
 
-#stockList {
-    height: 90vh;
+.headerRight {
+    font-size: 1.5em;
+    padding-right: 0.5rem;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stockList {
+    z-index: 1;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    width: 10rem;
+    height: 80vh;
     overflow-y: auto;
+    padding-right: 0.5rem;
 }
 
-.stockListRow:hover {
-    background-color: lightgray;
+#stockInput {
+    position: sticky;
+    top: 0;
+}
+
+#list:hover {
     cursor: default;
 }
 
 .stockListRow {
-    padding-top: 3px;
-    padding-bottom: 3px;
+    display: flex;
 }
 
 .sym {
-    width: 4em;
-    text-align: left;
+    width: 5rem;
 }
 
 .stockName {
-    width: 10em;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
 }
 
-#container {
+.graphContainer {
+    border-top: 3px solid white;
+}
+
+.graphDiv {
+    height: 300px;
+}
+
+#graphCanvas2 {
+    display: none;
+}
+
+#graphButtons {
     display: flex;
-    justify-content: center;
-    height: 100%;
+    height: 2.5rem;
 }
 
-#chartDiv {
-    height: 850px;
-    width: 850px;
-
+.chartDisplayButton {
+    background-color: whitesmoke;
+    border-radius: 30px;
 }
 
-table, th, td {
+.historyTable {
+    height: 55vh;
+    overflow-y: auto;
+}
+
+table, tr, td {
+    border: 1px solid black;
     border-collapse: collapse;
 }
 
-#colNames {
-    background-color: white;
+table {
+    width: 100%;
+}
+
+thead {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
     position: sticky;
     top: 0;
 }
 
+tr {
+    height: 2.5rem;
+}
+
+tr:nth-child(odd):not(thead tr) {
+    background-color: var(--secondary-bg-color);
+}
+
 td {
-    border: 1px solid gray;
-    padding: 3px;
     text-align: center;
 }
 
-.move {
-    text-align: right;
+a {
+    color: lightblue;
 }
 
-#stockTable {
-    padding-right: 0.5em;
-    height: 93vh;
-    overflow-y: auto;
-    background-color: ghostwhite;
+/* MEDIA QUERIES */
+@media (min-width: 1100px) {
+    #stocksButton {
+        display: none;
+    }
+
+    .stockList {
+        display: flex !important;
+        flex-direction: column;
+        position: relative;
+        height: 95vh;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .graphContainer {
+        width: 800px;
+    }
+
+    .graphDiv {
+        width: 800px;
+        height: 500px;
+    }
+
+    #graphCanvas {
+        display: block !important;
+    }
+
+    #graphCanvas2 {
+        display: block !important;
+    }
+
+    #graphButtons {
+        display: none;
+    }
+
+    .historyTable {
+        height: 95vh;
+        padding-right: 8px;
+    }
 }
 
-.stockData:hover {
-    cursor: default;
+@media (min-width: 1250px) {
+    .historyTable {
+        width: 15rem;
+    }
+
+    tr {
+        height: 1.25rem;
+    }
 }
