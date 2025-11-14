@@ -7,6 +7,8 @@ a list of all stocks on the S&P500 that user can click and choose to show info,
 and a table showing stock's closing date, closing price, and daily return percentage (move).
 */
 
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 // concat desired stock symbol to this
 const baseUrl = "https://localhost:7188/api/";
 const stockBySymbolUrl = `${baseUrl}stock/`;
@@ -32,7 +34,10 @@ async function getData(symbol) {
     let moves = [];
 
     data.forEach(row => {
-        dates.push(row['date']);
+        // format dates
+        const dateSplit = row['date'].split('-');
+        dates.push(`${months[parseInt(dateSplit[1])-1]} ${dateSplit[2]}, ${dateSplit[0]}`);
+
         closes.push(row['close']);
         moves.push(row['move']);
     });
@@ -218,7 +223,7 @@ function displayVolatility(data) {
     const volatility = data['monthlyStds'];
     let monthNums = [];
     for (let i = 0; i < volatility.length; i++) {
-        monthNums.push(i + 1);
+        monthNums.push(months[i]);
     }
 
     new Chart(ctx, {
