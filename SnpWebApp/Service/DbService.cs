@@ -174,7 +174,7 @@ namespace SnpWebApp.Service
                 });
             }
 
-            return sectorPerformance;
+            return sectorPerformance.OrderByDescending(s => s.SectorMoveMean).ToList();
         }
     }
 }
