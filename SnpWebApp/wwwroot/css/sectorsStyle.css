@@ -1,8 +1,9 @@
 ﻿:root {
     --primary-bg-color: rgb(43, 34, 34);
     --secondary-bg-color: lightgray;
-    --supp-bg-color: yellow;
+    --supp-bg-color: white;
     --primary-text-color: white;
+    --anchor-text-color: lightblue;
 }
 
 * {
@@ -46,42 +47,64 @@ button {
 }
 
 a {
-    color: lightblue;
+    color: var(--anchor-text-color);
 }
 
 
 /* CONTAINER */
 .graphDiv {
-    height:25rem;
+    height: 20rem;
 }
 
 #snpCard {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
     display: flex;
+    align-items: center;
+    height: 4rem;
     justify-content: space-evenly;
 }
 
 /* SECTOR "CARDS" */
+#sectorStocks {
+    overflow-y: auto;
+}
+
 .sectorInfo {
-    
+    margin-bottom: 1.5rem;
+}
+
+.rowContainer {
+    overflow: auto;
 }
 
 .sectorTitle {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    position: sticky;
+    top: 0;
     text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding-bottom: 0.25rem;
 }
 
 .row20 {
-    display: flex;
+    display: inline flex;
 }
 
 .title20 {
-    background-color: var(--secondary-bg-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    position: sticky;
+    left: 0;
     padding-top: 0.5rem;
+    text-align: center;
     width: 4rem;
 }
 
 .stock20 {
     display: flex;
-    border-bottom: 1px solid black;
 }
 
 .stockSymbol {
@@ -92,7 +115,7 @@ a {
 }
 
 .stockData {
-    background-color: green;
+    background-color: lightgray;
     width: 4.5rem;
     text-align: right;
 }
