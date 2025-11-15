@@ -81,7 +81,7 @@ namespace SnpWebApp.Service
         }
 
         // group by sectors and return every stock's ytd.
-        public IQueryable JoinSnpStock()
+        public List<SectorTopDTO> JoinSnpStock()
         {
             var result = _context.Snps
                 .Join(
@@ -93,29 +93,45 @@ namespace SnpWebApp.Service
                         Symbol = snp.Symbol,
                         Security = snp.Security,
                         Sector = snp.Sector,
-                        SubSector = snp.SubIndustry,
-                        DateAddedToList = snp.DateAdded,
-                        CIK = snp.Cik,
                         Date = stock.Date,
                         Close = stock.Close,
-                        Volume = stock.Volume,
                         Move = stock.Move
                     }
                 )
-                .GroupBy(snp => snp.Sector);
+                .GroupBy(snp => snp.Symbol);
 
-            foreach (var group in result)
+            List<StockJoinDTO> recentStocks = new List<StockJoinDTO>();
+            foreach (var stockGroup in result)
             {
-                var grp = group.GroupBy(g => g.Symbol);
-                Console.WriteLine(group.Key);
-                foreach (var g in grp)
+                var mostRecent = stockGroup.OrderByDescending(s => s.Date).First();
+                recentStocks.Add(new StockJoinDTO
                 {
-                    var first = g.OrderByDescending(d => d.Date).First();
-                    Console.WriteLine($"{first.Symbol}, Date: {first.Date}, Move: {first.Move}");
-                }
+                    Symbol = mostRecent.Symbol,
+                    Security = mostRecent.Security,
+                    Sector = mostRecent.Sector,
+                    Date = mostRecent.Date,
+                    Close = mostRecent.Close,
+                    Move = mostRecent.Move
+                });
             }
 
-            return result;
+            List<SectorTopDTO> sectorGroups = new List<SectorTopDTO>();
+            var groupRecentBySector = recentStocks.GroupBy(s => s.Sector);
+            foreach (var group in groupRecentBySector)
+            {
+                string sectorName = group.Key;
+                var top20 = group.OrderByDescending(g => g.Move).Take(20).ToList();
+                var bot20 = group.OrderBy(g => g.Move).Take(20).ToList();
+
+                sectorGroups.Add(new SectorTopDTO
+                {
+                    Sector = sectorName,
+                    Top20 = top20,
+                    Bot20 = bot20
+                });
+            }
+
+            return sectorGroups;
         }
 
         public async Task<List<SectorDTO>> SectorBySectorPerformanceAsync()

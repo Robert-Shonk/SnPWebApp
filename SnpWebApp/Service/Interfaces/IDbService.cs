@@ -10,7 +10,7 @@ namespace SnpWebApp.Service.Interfaces
         Task<List<Stock>> GetStockBySymbolAsync(string symbol);
         Task<IQueryable<IGrouping<int, Stock>>> GroupStockByMonthAsync(string symbol);
         Task<StockAggDTO> GetStockAggDTOAsync(string symbol);
-        IQueryable JoinSnpStock();
+        List<SectorTopDTO> JoinSnpStock();
         Task<List<SectorDTO>> SectorBySectorPerformanceAsync();
     }
 }
