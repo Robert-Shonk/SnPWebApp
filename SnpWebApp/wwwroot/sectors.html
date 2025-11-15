@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/sectorsStyle.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Sectors</title>
+</head>
+<body>
+    <header>
+        <!--<div class="headerLeft">
+            <button id="stocksButton">=</button>
+        </div>-->
+        <div class="headerMiddle">
+            <span id="sectorsHeader">S&P by Sectors</span>
+        </div>
+        <div class="headerRight"><a href="https://localhost:7188/">Stocks</a></div>
+    </header>
+
+    <div class="container">
+        <div class="graphContainer">
+            <div class="graphDiv" id="graphCanvas">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+        <div id="snpCard">
+            <div id="snpValue">6748.11</div>
+            <div id="moveSymbol">v</div>
+            <div id="movePercent">0.05%</div>
+            <div id="closeDiff">-3.38</div>
+            <div id="closeDate">Nov 14, 2025</div>
+        </div>
+        <div id="sectorStocks">
+            <div class="sectorInfo">
+                <div class="sectorTitle">
+                    Communication Service
+                </div>
+                <div class="row20">
+                    <div class="title20">Top 20</div>
+                    <div class="stock20">
+                        <div class="stockSymbol">AMD</div>
+                        <div class="stockData">
+                            <div class="stockClose">
+                                240.78
+                            </div>
+                            <div class="stockMove">
+                                3.62
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stock20">
+                        <div class="stockSymbol">AMD</div>
+                        <div class="stockData">
+                            <div class="stockClose">
+                                240.78
+                            </div>
+                            <div class="stockMove">
+                                3.62
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row20">
+                    <div class="title20">Low 20</div>
+                    <div class="stock20">
+                        <div class="stockSymbol">VZ</div>
+                        <div class="stockData">
+                            <div class="stockClose">
+                                122.22
+                            </div>
+                            <div class="stockMove">
+                                -2.22
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stock20">
+                        <div class="stockSymbol">VZ</div>
+                        <div class="stockData">
+                            <div class="stockClose">
+                                122.22
+                            </div>
+                            <div class="stockMove">
+                                -2.22
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sectorsScript.js"></script>
+</body>
+</html>

@@ -10,5 +10,11 @@ namespace SnpWebApp.Controllers
         {
             return File("index.html", "text/html");
         }
+
+        [HttpGet("sectors")]
+        public IActionResult Sectors()
+        {
+            return File("sectors.html", "text/html");
+        }
     }
 }

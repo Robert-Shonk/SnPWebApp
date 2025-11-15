@@ -1,0 +1,103 @@
+﻿:root {
+    --primary-bg-color: rgb(43, 34, 34);
+    --secondary-bg-color: lightgray;
+    --supp-bg-color: yellow;
+    --primary-text-color: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+header {
+    background-color: var(--primary-bg-color);
+    height: 3rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--primary-text-color);
+}
+
+.headerLeft {
+    width: 3rem;
+}
+
+button {
+    width: 100%;
+}
+
+#stocksButton {
+    height: 3rem;
+}
+
+.headerMiddle {
+    font-size: 1.25em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 15rem;
+}
+
+.headerRight {
+    font-size: 1.5em;
+    padding-right: 0.5rem;
+}
+
+a {
+    color: lightblue;
+}
+
+
+/* CONTAINER */
+.graphDiv {
+    height:25rem;
+}
+
+#snpCard {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* SECTOR "CARDS" */
+.sectorInfo {
+    
+}
+
+.sectorTitle {
+    text-align: center;
+}
+
+.row20 {
+    display: flex;
+}
+
+.title20 {
+    background-color: var(--secondary-bg-color);
+    padding-top: 0.5rem;
+    width: 4rem;
+}
+
+.stock20 {
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.stockSymbol {
+    background-color: var(--supp-bg-color);
+    padding-top: 0.5rem;
+    width: 3.5rem;
+    text-align: center;
+}
+
+.stockData {
+    background-color: green;
+    width: 4.5rem;
+    text-align: right;
+}
+
+.stockClose {
+
+}
+/* END SECTOR "CARDS" */
