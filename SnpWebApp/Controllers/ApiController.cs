@@ -59,9 +59,9 @@ namespace SnpWebApp.Controllers
         }
 
         [HttpGet("sectors")]
-        public IActionResult JoinTables()
+        public async Task<IActionResult> JoinTables()
         {
-            var join = _dbService.JoinSnpStock();
+            var join = await _dbService.SectorStatsAsync();
 
             return Ok(join);
         }
