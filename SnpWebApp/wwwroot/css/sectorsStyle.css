@@ -1,9 +1,13 @@
 ﻿:root {
-    --primary-bg-color: rgb(43, 34, 34);
-    --secondary-bg-color: lightgray;
-    --supp-bg-color: white;
+    --primary-bg-color: #0c1618;
+    --secondary-bg-color: #004643;
+    --supp-bg-color: #fff8f0;
     --primary-text-color: white;
-    --anchor-text-color: lightblue;
+    --focus-color: #2b2031;
+    --anchor-color: lightblue;
+    --move-positive: green;
+    --move-negative: #B22222;
+    --font-family: "Lucida Console", monospace;
 }
 
 * {
@@ -11,26 +15,24 @@
     padding: 0;
 }
 
+body {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    font-family: var(--font-family);
+}
+
 /* HEADER */
 header {
     background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
     height: 3rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    color: var(--primary-text-color);
 }
 
 .headerLeft {
-    width: 3rem;
-}
-
-button {
-    width: 100%;
-}
-
-#stocksButton {
-    height: 3rem;
+    color: var(--primary-bg-color);
 }
 
 .headerMiddle {
@@ -47,12 +49,14 @@ button {
 }
 
 a {
-    color: var(--anchor-text-color);
+    color: var(--anchor-text-color) !important;
 }
 
 
 /* CONTAINER */
 .graphDiv {
+    background-color: var(--secondary-bg-color);
+    border-radius: 10px;
     height: 20rem;
 }
 
@@ -79,13 +83,13 @@ a {
 }
 
 .sectorTitle {
-    background-color: var(--primary-bg-color);
+    background-color: var(--secondary-bg-color);
     color: var(--primary-text-color);
     position: sticky;
-    top: 0;
     text-align: center;
     font-size: 1.25rem;
     font-weight: 700;
+    padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 }
 
@@ -95,12 +99,12 @@ a {
 
 .title20 {
     background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
     position: sticky;
     left: 0;
     padding-top: 0.5rem;
     text-align: center;
     width: 4rem;
+    font-weight: 700;
 }
 
 .stock20 {
@@ -108,19 +112,61 @@ a {
 }
 
 .stockSymbol {
-    background-color: var(--supp-bg-color);
+    background: linear-gradient(45deg, var(--secondary-bg-color), var(--primary-bg-color));
     padding-top: 0.5rem;
     width: 3.5rem;
     text-align: center;
 }
 
 .stockData {
-    background-color: lightgray;
-    width: 4.5rem;
+    background-color: gray;
+    width: 5rem;
     text-align: right;
 }
 
 .stockClose {
 
 }
+
+.stockMove {
+    background-color: var(--secondary-bg-color);
+}
 /* END SECTOR "CARDS" */
+
+/* MEDIA QUERIES */
+@media (min-width: 1100px) {
+    header {
+        justify-content: space-between;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .graphContainer {
+        width: 60rem;
+    }
+
+    #graphCanvas {
+        height: 25rem;
+    }
+
+    #snpCard {
+        border-radius: 10px;
+        height: 15rem;
+        width: 30rem;
+    }
+
+    #sectorStocks {
+        width: 70rem;
+        border-radius: 10px;
+        padding-right: 20px;
+    }
+
+    .rowContainer {
+        padding-bottom: 16px;
+    }
+}

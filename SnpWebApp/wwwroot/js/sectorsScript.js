@@ -39,18 +39,45 @@ function displaySectorsInfo(data) {
             datasets: [{
                 label: `S&P500 Sectors`,
                 data: moveMeans,
+                borderColor: "black",
+                backgroundColor: "white",
                 borderWidth: 1
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "S&P500 Sectors",
+                    color: "white",
+                    font: {
+                        size: 16
+                    }
+                }
+            },
             scales: {
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    ticks: {
+                        color: "white"
+                    },
+                    grid: {
+                        color: "gray"
+                    }
                 },
                 x: {
+                    title: {
+                        display: true,
+                        text: "Average Move %",
+                        color: "white"
+                    },
                     ticks: {
                         autoSkip: true,
-                        maxTicksLimit: 5
+                        maxTicksLimit: 5,
+                        color: "white"
                     }
                 }
             },
@@ -100,12 +127,12 @@ function createTop20Tables(data, sortedKeys) {
             // create and append stockClose and stockMove to stockData div
             const stockClose = document.createElement("div");
             stockClose.setAttribute("class", "stockClose");
-            stockClose.textContent = stock["close"];
+            stockClose.textContent = `$${stock["close"]}`;
             stockData.append(stockClose);
 
             const stockMove = document.createElement("div");
             stockMove.setAttribute("class", "stockMove");
-            stockMove.textContent = stock["move"].toFixed(2);
+            stockMove.textContent = `${stock["move"].toFixed(2)}%`;
             stockData.append(stockMove);
 
             // append stockData to stock20 div
@@ -141,12 +168,12 @@ function createTop20Tables(data, sortedKeys) {
             // create and append stockClose and stockMove to stockData div
             const stockClose = document.createElement("div");
             stockClose.setAttribute("class", "stockClose");
-            stockClose.textContent = stock["close"];
+            stockClose.textContent = `$${stock["close"]}`;
             stockData.append(stockClose);
 
             const stockMove = document.createElement("div");
             stockMove.setAttribute("class", "stockMove");
-            stockMove.textContent = stock["move"].toFixed(2);
+            stockMove.textContent = `${stock["move"].toFixed(2)}%`;
             stockData.append(stockMove);
 
             // append stockData to stock20 div
