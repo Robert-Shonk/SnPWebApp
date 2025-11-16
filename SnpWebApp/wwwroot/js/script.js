@@ -115,7 +115,7 @@ function createNameList(stocks) {
         stockList.append(mainDiv);
 
         if (key == sessionStorage.getItem("stockFocus")) {
-            mainDiv.style.backgroundColor = "yellow";
+            mainDiv.setAttribute("id", "listFocus");
         }
     });
 }
@@ -152,10 +152,10 @@ function createStockTable(data) {
         const tdMove = document.createElement("td");
         tdMove.textContent = data["moves"][row].toFixed(2);
         if (data["moves"][row] >= 0) {
-            tdMove.style.backgroundColor = "lightgreen";
+            tdMove.setAttribute("class", "positiveMove");
         }
         else {
-            tdMove.style.backgroundColor = "#D9544D";
+            tdMove.setAttribute("class", "negativeMove");
         }
         tableRow.append(tdMove);
 
@@ -184,20 +184,44 @@ function displayData(data, symbol, stockName) {
         data: {
             labels: dates,
             datasets: [{
-                label: `${symbol.toUpperCase()}`,
+                label: "Year to Date",
                 data: closes,
+                borderColor: "white",
                 borderWidth: 1
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: `Year to Date - ${symbol.toUpperCase()}`,
+                    color: "white",
+                    font: {
+                        size: 16
+                    }
+                }
+            },
             scales: {
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    ticks: {
+                        color: "white"
+                    },
+                    grid: {
+                        color: "gray"
+                    }
                 },
                 x: {
                     ticks: {
                         autoSkip: true,
-                        maxTicksLimit: 5
+                        maxTicksLimit: 5,
+                        color: "white"
+                    },
+                    grid: {
+                        color: "gray"
                     }
                 }
             },
@@ -233,13 +257,41 @@ function displayVolatility(data) {
             datasets: [{
                 label: 'Monthly Volatility',
                 data: volatility,
+                borderColor: "white",
                 borderWidth: 1
             }]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Monthly Volatility",
+                    color: "white",
+                    font: {
+                        size: 16
+                    }
+                }
+            },
             scales: {
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    ticks: {
+                        color: "white"
+                    },
+                    grid: {
+                        color: "gray"
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: "white"
+                    },
+                    grid: {
+                        color: "gray"
+                    }
                 }
             },
             maintainAspectRatio: false

@@ -1,7 +1,12 @@
 ﻿:root {
-    --primary-bg-color: rgb(43, 34, 34);
-    --secondary-bg-color: lightgray;
+    --primary-bg-color: #0c1618;
+    --secondary-bg-color: #004643;
+    --supp-bg-color: #fff8f0;
     --primary-text-color: white;
+    --focus-color: #2b2031;
+    --anchor-color: lightblue;
+    --move-positive: green;
+    --move-negative: #B22222;
 }
 
 
@@ -10,6 +15,11 @@
     padding: 0;
 }
 
+body {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    font-family: "Lucida Console", monospace;
+}
 
 /* HEADER */
 header {
@@ -54,11 +64,11 @@ button {
 }
 
 .stockList {
+    background-color: var(--secondary-bg-color);
     z-index: 1;
     display: none;
     flex-direction: column;
     position: absolute;
-    background-color: white;
     width: 10rem;
     height: 80vh;
     overflow-y: auto;
@@ -70,8 +80,16 @@ button {
     top: 0;
 }
 
+#list {
+    background-color: var(--secondary-bg-color);
+}
+
 #list:hover {
     cursor: default;
+}
+
+#listFocus {
+    background-color: var(--focus-color);
 }
 
 .stockListRow {
@@ -91,7 +109,7 @@ button {
 }
 
 .graphContainer {
-    border-top: 3px solid white;
+    background-color: var(--secondary-bg-color);
 }
 
 .graphDiv {
@@ -141,12 +159,25 @@ tr:nth-child(odd):not(thead tr) {
     background-color: var(--secondary-bg-color);
 }
 
+tr:nth-child(even) {
+    background-color: var(--primary-bg-color);
+}
+
 td {
     text-align: center;
+    color: var(--primary-text-color);
+}
+
+.positiveMove {
+    background-color: var(--move-positive);
+}
+
+.negativeMove {
+    background-color: var(--move-negative);
 }
 
 a {
-    color: lightblue;
+    color: var(--anchor-color);
 }
 
 /* MEDIA QUERIES */
@@ -156,6 +187,7 @@ a {
     }
 
     .stockList {
+        border-radius: 5px;
         display: flex !important;
         flex-direction: column;
         position: relative;
@@ -169,6 +201,7 @@ a {
     }
 
     .graphContainer {
+        border-radius: 10px;
         width: 800px;
     }
 
@@ -197,10 +230,11 @@ a {
 
 @media (min-width: 1250px) {
     .historyTable {
-        width: 15rem;
+        width: 20rem;
+        font-size: 0.9rem;
     }
 
     tr {
-        height: 1.25rem;
+        height: 2rem;
     }
 }
