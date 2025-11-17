@@ -15,12 +15,25 @@ public partial class SnpDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Daily> Dailies { get; set; }
+
     public virtual DbSet<Snp> Snps { get; set; }
 
     public virtual DbSet<Stock> Stocks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Daily>(entity =>
+        {
+            entity.ToTable("daily");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Change).HasColumnName("change");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.Move).HasColumnName("move");
+            entity.Property(e => e.Points).HasColumnName("points");
+        });
+
         modelBuilder.Entity<Snp>(entity =>
         {
             entity.ToTable("snp");
