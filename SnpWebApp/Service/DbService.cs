@@ -167,5 +167,128 @@ namespace SnpWebApp.Service
 
             return sectPerf.OrderByDescending(s => s.Value).ToDictionary<string, double>();
         }
+
+        public async Task<Daily> GetDailyAsync()
+        {
+            var daily = await _context.Dailies.FirstOrDefaultAsync();
+
+            if (daily == null)
+            {
+                return null;
+            }
+
+            return daily;
+        }
+
+        // insert functions
+        public int InsertStocks(List<StockDTO> stockDtos)
+        {
+            if (stockDtos.Count > 0)
+            {
+                List<Stock> stocks = new List<Stock>();
+                foreach (var dto in stockDtos)
+                {
+                    stocks.Add(new Stock()
+                    {
+                        Symbol = dto.Symbol,
+                        Date = dto.Date,
+                        Open = dto.Open,
+                        High = dto.High,
+                        Low = dto.Low,
+                        Close = dto.Close,
+                        Volume = dto.Volume,
+                        Move = dto.Move
+                    });
+                }
+
+                _context.AddRange(stocks);
+                _context.SaveChanges();
+
+                return 201;
+            }
+            
+            return 400;
+        }
+
+
+        // insert daily
+        public int InsertDaily(DailyDTO dailyDto)
+        {
+            Daily daily = new Daily()
+            {
+                Points = dailyDto.Points,
+                Change = dailyDto.Change,
+                Move = dailyDto.Move,
+                Date = dailyDto.Date
+            };
+
+            _context.Dailies.Add(daily);
+            _context.SaveChanges();
+            return 201;
+        }
+
+        // update daily
+        public int UpdateDaily(DailyDTO dailyDto)
+        {
+            var updateDaily = _context.Dailies.First();
+
+            if (updateDaily != null)
+            {
+                updateDaily.Points = dailyDto.Points;
+                updateDaily.Change = dailyDto.Change;
+                updateDaily.Move = dailyDto.Move;
+                updateDaily.Date = dailyDto.Date;
+            }
+
+            _context.SaveChanges();
+
+            return 201;
+        }
+
+        // replace snp table with new data
+        public int ReplaceSnp(List<SnpDTO> snpDtos)
+        {
+            var snps = _context.Snps.ToList();
+            _context.Snps.RemoveRange(snps);
+
+            List<Snp> updateSnps = new List<Snp>();
+
+            foreach (var dto in snpDtos)
+            {
+                updateSnps.Add(new Snp
+                {
+                    ExchangeUrl = dto.ExchangeUrl,
+                    Symbol = dto.Symbol,
+                    Security = dto.Security,
+                    Sector = dto.Sector,
+                    SubIndustry = dto.SubIndustry,
+                    HqLocation = dto.HqLocation,
+                    DateAdded = dto.DateAdded,
+                    Cik = dto.Cik,
+                    Founded = dto.Founded
+                });
+            }
+
+            _context.AddRange(updateSnps);
+            _context.SaveChanges();
+            Console.WriteLine("Snp table replaced.");
+
+            return 204;
+        }
+
+
+        // delete functions
+        public int DeleteStocks(List<string> stocks)
+        {
+            foreach (var stock in stocks)
+            {
+                var deleteStocks = _context.Stocks.Where(s => s.Symbol == stock).ToList();
+                _context.RemoveRange(deleteStocks);
+            }
+
+            _context.SaveChanges();
+
+            return 204;
+        }
     }
 }

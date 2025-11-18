@@ -12,5 +12,11 @@ namespace SnpWebApp.Service.Interfaces
         Task<StockAggDTO> GetStockAggDTOAsync(string symbol);
         Task<Dictionary<string, SectorTopDTO>> SectorStatsAsync();
         Task<Dictionary<string, double>> SectorBySectorPerformanceAsync();
+        Task<Daily> GetDailyAsync();
+        int InsertDaily(DailyDTO dailyDto);
+        int UpdateDaily(DailyDTO dailyDto);
+        int ReplaceSnp(List<SnpDTO> snpDtos);
+        int InsertStocks(List<StockDTO> stockDtos);
+        int DeleteStocks(List<string> stocks);
     }
 }

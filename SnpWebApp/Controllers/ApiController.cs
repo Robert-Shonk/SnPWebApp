@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SnpWebApp.Data.DTO;
 using SnpWebApp.Service.Interfaces;
 
 namespace SnpWebApp.Controllers
@@ -14,6 +15,7 @@ namespace SnpWebApp.Controllers
            _dbService = dbService;
         }
 
+        // GET requests
         // gets all stock ticker symbols
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -72,6 +74,65 @@ namespace SnpWebApp.Controllers
             var sect = await _dbService.SectorBySectorPerformanceAsync();
 
             return Ok(sect);
+        }
+
+        [HttpGet("daily")]
+        public async Task<IActionResult> GetDaily()
+        {
+            var daily = await _dbService.GetDailyAsync();
+
+            return Ok(daily);
+        }
+
+        // POST requests
+        [HttpPost("/insertstocks")]
+        public IActionResult InsertStocks(List<StockDTO> stockDtos)
+        {
+            var insertStocks = _dbService.InsertStocks(stockDtos);
+            Console.WriteLine(insertStocks);
+
+            return Ok("stocks inserted");
+        }
+
+
+        [HttpPost("/insertdaily")]
+        public IActionResult InsertDaily(DailyDTO dailyDto)
+        {
+            var insertDaily = _dbService.InsertDaily(dailyDto);
+            Console.WriteLine(insertDaily);
+            return Ok(insertDaily);
+        }
+
+        [HttpPost("/replacesnp")]
+        public IActionResult UpdateSnpList(List<SnpDTO> snpDtos)
+        {
+            var res = _dbService.ReplaceSnp(snpDtos);
+
+            if (res != 204)
+            {
+                return BadRequest(res);
+            }
+
+            return Ok(res);
+        }
+
+        // PUT requests
+        [HttpPut("/updatedaily")]
+        public IActionResult UpdateDaily(DailyDTO dailyDto)
+        {
+            var updateDaily = _dbService.UpdateDaily(dailyDto);
+            Console.WriteLine(updateDaily);
+            return Ok(updateDaily);
+        }
+
+        // DELETE requests
+        [HttpDelete("/deletestocks")]
+        public IActionResult DeleteStocks(List<string> stocks)
+        {
+            var deleteStocks = _dbService.DeleteStocks(stocks);
+            Console.WriteLine("stocks deleted");
+
+            return Ok("stocks deleted");
         }
     }
 }

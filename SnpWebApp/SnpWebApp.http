@@ -1,6 +1,39 @@
-@SnpWebApp_HostAddress = http://localhost:5105
+@SnpWebApp_HostAddress = https://localhost:7188
 
 GET {{SnpWebApp_HostAddress}}/weatherforecast/
 Accept: application/json
+
+###
+
+POST {{SnpWebApp_HostAddress}}/insertdaily
+Content-Type: application/json
+
+{
+  "points": 123.4,
+  "change": 2.22,
+  "move": 0.25,
+  "date": "2025-12-25"
+}
+
+###
+
+PUT {{SnpWebApp_HostAddress}}/updatedaily
+Content-Type: application/json
+
+{
+  "points": 2222.4,
+  "change": 800.22,
+  "move": 3.75,
+  "date": "2025-11-17"
+}
+
+###
+
+DELETE {{SnpWebApp_HostAddress}}/deletestocks
+Content-Type: application/json
+
+[
+    "MMM", "AAPL"
+]
 
 ###
