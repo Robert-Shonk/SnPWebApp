@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SnpWebApp.Authentication;
 using SnpWebApp.Data.DTO;
 using SnpWebApp.Service.Interfaces;
 
@@ -20,14 +21,9 @@ namespace SnpWebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var stockSymbols = await _dbService.GetAllStockSymbolsAsync();
+            var snps = await _dbService.GetAllStockSymbolsAsync();
 
-            if (stockSymbols.Count() == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(stockSymbols);
+            return Ok(snps);
         }
 
         // get all stock company names
@@ -84,26 +80,29 @@ namespace SnpWebApp.Controllers
             return Ok(daily);
         }
 
+        // WRITE TO DB REQUESTS
         // POST requests
-        [HttpPost("/insertstocks")]
+        [HttpPost("insertstocks")]
+        [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public IActionResult InsertStocks(List<StockDTO> stockDtos)
         {
             var insertStocks = _dbService.InsertStocks(stockDtos);
-            Console.WriteLine(insertStocks);
 
-            return Ok("stocks inserted");
+            return Ok(insertStocks);
         }
 
 
-        [HttpPost("/insertdaily")]
+        [HttpPost("insertdaily")]
+        [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public IActionResult InsertDaily(DailyDTO dailyDto)
         {
             var insertDaily = _dbService.InsertDaily(dailyDto);
-            Console.WriteLine(insertDaily);
+
             return Ok(insertDaily);
         }
 
-        [HttpPost("/replacesnp")]
+        [HttpPost("replacesnp")]
+        [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public IActionResult UpdateSnpList(List<SnpDTO> snpDtos)
         {
             var res = _dbService.ReplaceSnp(snpDtos);
@@ -117,22 +116,23 @@ namespace SnpWebApp.Controllers
         }
 
         // PUT requests
-        [HttpPut("/updatedaily")]
+        [HttpPut("updatedaily")]
+        [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public IActionResult UpdateDaily(DailyDTO dailyDto)
         {
             var updateDaily = _dbService.UpdateDaily(dailyDto);
-            Console.WriteLine(updateDaily);
+
             return Ok(updateDaily);
         }
 
         // DELETE requests
-        [HttpDelete("/deletestocks")]
+        [HttpDelete("deletestocks")]
+        [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public IActionResult DeleteStocks(List<string> stocks)
         {
             var deleteStocks = _dbService.DeleteStocks(stocks);
-            Console.WriteLine("stocks deleted");
 
-            return Ok("stocks deleted");
+            return Ok(deleteStocks);
         }
     }
 }

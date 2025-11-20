@@ -40,13 +40,13 @@ public partial class SnpDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Cik).HasColumnName("CIK");
-            entity.Property(e => e.DateAdded).HasColumnName("date_added");
-            entity.Property(e => e.ExchangeUrl).HasColumnName("exchange_url");
+            entity.Property(e => e.DateAdded).HasColumnName("dateAdded");
+            entity.Property(e => e.ExchangeUrl).HasColumnName("exchangeUrl");
             entity.Property(e => e.Founded).HasColumnName("founded");
-            entity.Property(e => e.HqLocation).HasColumnName("hq_location");
+            entity.Property(e => e.HqLocation).HasColumnName("hqLocation");
             entity.Property(e => e.Sector).HasColumnName("sector");
             entity.Property(e => e.Security).HasColumnName("security");
-            entity.Property(e => e.SubIndustry).HasColumnName("sub_industry");
+            entity.Property(e => e.SubIndustry).HasColumnName("subIndustry");
             entity.Property(e => e.Symbol).HasColumnName("symbol");
         });
 

@@ -13,7 +13,7 @@ namespace SnpWebApp.Service
         {
             _context = context;
         }
-        
+
         // Get all 500 stock symbols from snp table.
         public async Task<List<string>> GetAllStockSymbolsAsync()
         {
@@ -211,7 +211,6 @@ namespace SnpWebApp.Service
         }
 
 
-        // insert daily
         public int InsertDaily(DailyDTO dailyDto)
         {
             Daily daily = new Daily()
@@ -227,7 +226,7 @@ namespace SnpWebApp.Service
             return 201;
         }
 
-        // update daily
+
         public int UpdateDaily(DailyDTO dailyDto)
         {
             var updateDaily = _context.Dailies.First();
@@ -255,7 +254,7 @@ namespace SnpWebApp.Service
 
             foreach (var dto in snpDtos)
             {
-                updateSnps.Add(new Snp
+                updateSnps.Add(new Snp()
                 {
                     ExchangeUrl = dto.ExchangeUrl,
                     Symbol = dto.Symbol,
@@ -277,7 +276,6 @@ namespace SnpWebApp.Service
         }
 
 
-        // delete functions
         public int DeleteStocks(List<string> stocks)
         {
             foreach (var stock in stocks)

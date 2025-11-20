@@ -9,8 +9,9 @@ and a table showing stock's closing date, closing price, and daily return percen
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+const baseUrl = "https://mysnp500-hvb6abetgadyheau.westus3-01.azurewebsites.net/api/";
 // concat desired stock symbol to this
-const baseUrl = "https://localhost:7188/api/";
+// const baseUrl = "https://localhost:7188/api/";
 const stockBySymbolUrl = `${baseUrl}stock/`;
 const stockNamesUrl = `${baseUrl}names`;
 const stockAggUrl = `${baseUrl}stock/aggregate/`;

@@ -2,10 +2,11 @@
 Script for /sectors page
 */
 
+const baseUrl = "https://mysnp500-hvb6abetgadyheau.westus3-01.azurewebsites.net/api/";
 // urls
-const baseUrl = "https://localhost:7188/";
-const sectorPerfUrl = `${baseUrl}api/sectorPerformance`;
-const sectorGroupsUrl = `${baseUrl}api/sectors`;
+//const baseUrl = "https://localhost:7188/api";
+const sectorPerfUrl = `${baseUrl}sectorPerformance`;
+const sectorGroupsUrl = `${baseUrl}sectors`;
 
 async function fetchSectorsInfo() {
     const response = await fetch(sectorPerfUrl);

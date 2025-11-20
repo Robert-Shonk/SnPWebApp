@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SnpWebApp.Authentication;
 using SnpWebApp.Data;
 using SnpWebApp.Service;
 using SnpWebApp.Service.Interfaces;
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// api key filter
+builder.Services.AddScoped<ApiKeyAuthFilter>();
 
 // DbContext
 builder.Services.AddDbContext<SnpDbContext>(options =>

@@ -1,12 +1,8 @@
 @SnpWebApp_HostAddress = https://localhost:7188
 
-GET {{SnpWebApp_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
-
-POST {{SnpWebApp_HostAddress}}/insertdaily
+POST {{SnpWebApp_HostAddress}}/api/insertdaily
 Content-Type: application/json
+x-api-key: {APIKEY}
 
 {
   "points": 123.4,
@@ -35,5 +31,14 @@ Content-Type: application/json
 [
     "MMM", "AAPL"
 ]
+
+###
+
+POST {{SnpWebApp_HostAddress}}/api/replacesnp
+Content-Type: application/json
+x-api-key: {apikey}
+
+
+  [{"exchangeUrl": "www.nasdaq.com/MMM", "symbol": "MMM", "security": "3M", "sector": "Tech", "subIndustry": "Sub Tech", "hqLocation": "wyoming", "dateAdded": "2011-02-15", "CIK": 1548, "founded": "2002 (1999)"}, {"exchangeUrl": "www.nasdaq.com/NVDA", "symbol": "NVDA", "security": "Nvidia", "sector": "Tech", "subIndustry": "Sub Tech", "hqLocation": "new jersey", "dateAdded": "2000-02-15", "CIK": 1548, "founded": "2002 (1999)"}]
 
 ###
