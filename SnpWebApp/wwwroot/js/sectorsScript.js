@@ -4,12 +4,20 @@ Script for /sectors page
 
 const baseUrl = "https://mysnp500-hvb6abetgadyheau.westus3-01.azurewebsites.net/api/";
 // urls
-//const baseUrl = "https://localhost:7188/api";
+//const baseUrldev = "https://localhost:7188/api/";
 const sectorPerfUrl = `${baseUrl}sectorPerformance`;
+const dailyUrl = `${baseUrl}daily`
 const sectorGroupsUrl = `${baseUrl}sectors`;
 
 async function fetchSectorsInfo() {
     const response = await fetch(sectorPerfUrl);
+    const data = await response.json();
+
+    return data;
+}
+
+async function fetchDaily() {
+    const response = await fetch(dailyUrl);
     const data = await response.json();
 
     return data;
@@ -87,6 +95,32 @@ function displaySectorsInfo(data) {
             indexAxis: 'y'
         }
     });
+}
+
+function setSnpStats(snp) {
+    const snpValue = document.getElementById("snpValue");
+    snpValue.textContent = snp["points"];
+
+    const moveSymbol = document.getElementById("moveSymbol");
+    const arrow = document.createElement("div");
+    if (snp["move"] >= 0) {
+        arrow.setAttribute("id", "triangle-up");
+    }
+    else {
+        arrow.setAttribute("id", "triangle-up");
+    }
+    moveSymbol.append(arrow);
+    
+
+    const movePercent = document.getElementById("movePercent");
+    movePercent.textContent = snp["move"];
+
+    const closeDiff = document.getElementById("closeDiff");
+    closeDiff.textContent = `+$${snp["change"]}`;
+
+    const date = snp["date"].split("-");
+    const closeDate = document.getElementById("closeDate");
+    closeDate.textContent = `${date[1]}-${date[2]}-${date[0]}`;
 }
 
 function createTop20Tables(data, sortedKeys) {
@@ -198,9 +232,11 @@ function createTop20Tables(data, sortedKeys) {
 
 async function renderView() {
     const info = await fetchSectorsInfo();
+    const snp = await fetchDaily();
     const sectorGroups = await fetchSectorGroups();
 
     displaySectorsInfo(info);
+    setSnpStats(snp);
     createTop20Tables(sectorGroups, Object.keys(info));
 }
 

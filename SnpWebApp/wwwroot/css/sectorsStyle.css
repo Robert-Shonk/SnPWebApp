@@ -69,6 +69,24 @@ a {
     justify-content: space-evenly;
 }
 
+#triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 15px solid #555;
+    border-block-color: lightgreen;
+}
+
+#triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 15px solid #555;
+    border-block-color: red;
+}
+
 /* SECTOR "CARDS" */
 #sectorStocks {
     overflow-y: auto;
