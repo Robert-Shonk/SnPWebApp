@@ -13,8 +13,8 @@ Tools used:
     * Chart.js for the charts
     * Plain javascript, html, and css
 
-![Mobile stocks](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_stocks_mob.png) ![Mobile sectors](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_sectors_mob.png)
+![Mobile stocks](/wwwroot/assets/screenshots/mysnp500_stocks_mob.png) ![Mobile sectors](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_sectors_mob.png)
 
-![Wide stocks](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_stocks.png)
+![Wide stocks](/wwwroot/assets/screenshots/mysnp500_stocks.png)
 
-![Wide sectors](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_sectors.png)
+![Wide sectors](/wwwroot/assets/screenshots/mysnp500_sectors.png)
