@@ -210,6 +210,35 @@ namespace SnpWebApp.Service
             return 400;
         }
 
+        // update stocks. need to query to calc move.
+        public int UpdateStocks(List<StockDTO> stockDtos)
+        {
+            List<Stock> stockList = new List<Stock>();
+            foreach (var stock in stockDtos)
+            {
+                var res = _context.Stocks.Where(s => s.Symbol == stock.Symbol).OrderByDescending(s => s.Date).First();
+
+                double move = ((stock.Close / res.Close) - 1) * 100;
+
+                stockList.Add(new Stock()
+                {
+                    Symbol = stock.Symbol,
+                    Date = stock.Date,
+                    Open = stock.Open,
+                    High = stock.High,
+                    Low = stock.Low,
+                    Close = stock.Close,
+                    Volume = stock.Volume,
+                    Move = move
+                });
+            }
+
+            _context.Stocks.AddRange(stockList);
+            _context.SaveChanges();
+
+            return 201;
+        }
+
 
         public int InsertDaily(DailyDTO dailyDto)
         {

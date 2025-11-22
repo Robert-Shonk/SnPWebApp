@@ -18,5 +18,6 @@ namespace SnpWebApp.Service.Interfaces
         int ReplaceSnp(List<SnpDTO> snpDtos);
         int InsertStocks(List<StockDTO> stockDtos);
         int DeleteStocks(List<string> stocks);
+        int UpdateStocks(List<StockDTO> stockDtos);
     }
 }

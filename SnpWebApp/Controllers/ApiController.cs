@@ -92,6 +92,16 @@ namespace SnpWebApp.Controllers
         }
 
 
+        [HttpPost("updatestocks")]
+        [ServiceFilter(typeof(ApiKeyAuthFilter))]
+        public IActionResult UpdateStocks(List<StockDTO> stockDtos)
+        {
+            var updateStocks = _dbService.UpdateStocks(stockDtos);
+
+            return Ok(updateStocks);
+        }
+
+
         [HttpPost("insertdaily")]
         [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public IActionResult InsertDaily(DailyDTO dailyDto)

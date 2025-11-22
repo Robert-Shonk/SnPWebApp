@@ -116,7 +116,7 @@ function setSnpStats(snp) {
     movePercent.textContent = snp["move"];
 
     const closeDiff = document.getElementById("closeDiff");
-    closeDiff.textContent = `+$${snp["change"]}`;
+    closeDiff.textContent = `${snp["change"]}`;
 
     const date = snp["date"].split("-");
     const closeDate = document.getElementById("closeDate");
