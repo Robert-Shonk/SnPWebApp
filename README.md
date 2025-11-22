@@ -1,7 +1,20 @@
-Web API using ASP.NET Core as the backend.
+A website that will display charts and tables of up-to-date data of stocks that are currently on the S&P500.
 
-Using a SQLite database with data of stocks currently on the S&P500 scraped using Python and Selenium.
+Data is scraped and stored into a Sqlite database using Python. These scripts are in my other repo, SnP.
 
-Would like to display daily stock data as well information that isn't typically shown on stock sites like monthly averages and standard deviations of each stock. Also would like to display information like the S&P500's sector by sector performance.
+The data is made available and updated through a rest API built with ASP.NET Core.
 
-For now, planning on using plain html, css, and javascript for frontend.
+The website is built for mobile and widescreens.
+
+Tools used:
+* Backend: C# and ASP.NET Core 
+
+* Front end:
+    * Chart.js for the charts
+    * Plain javascript, html, and css
+
+![Mobile stocks](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_stocks_mob.png) ![Mobile sectors](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_sectors_mob.png)
+
+![Wide stocks](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_stocks.png)
+
+![Wide sectors](/SnPWebApp/wwwroot/assets/screenshots/mysnp500_sectors.png)
