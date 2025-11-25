@@ -1,3 +1,5 @@
+Link: https://mysnp500-hvb6abetgadyheau.canadacentral-01.azurewebsites.net/
+
 A website that displays charts and tables of up-to-date data of stocks that are currently on the S&P500.
 
 Data is scraped and stored into a Sqlite database using Python. These scripts are in my other repo, SnP.

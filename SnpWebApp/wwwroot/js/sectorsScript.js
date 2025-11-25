@@ -2,7 +2,7 @@
 Script for /sectors page
 */
 
-const baseUrl = "https://mysnp500-hvb6abetgadyheau.westus3-01.azurewebsites.net/api/";
+const baseUrl = "https://mysnp500-hvb6abetgadyheau.canadacentral-01.azurewebsites.net/api/";
 // urls
 //const baseUrldev = "https://localhost:7188/api/";
 const sectorPerfUrl = `${baseUrl}sectorPerformance`;
